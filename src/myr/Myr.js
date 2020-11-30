@@ -11,6 +11,12 @@ class Myr {
         this.assets = [];
         this.res = { els: this.els, assets: this.assets };
         this.sceneEl = document.querySelector("a-scene");
+        this.rand = {
+            seed: undefined, 
+            randCounter: 0,
+            oldRandomCounter: 0,
+            oldSeed: 0,
+        };
         this.cursor = {
             color: "red",
             transparency: 0,
@@ -1061,6 +1067,169 @@ class Myr {
     `;
         el.animation__color = anim;
         return outerElId;
+    }
+
+    setSeed = (seed) => {
+        if ((seed === undefined) || (seed === 0)) {
+            let newSeed = new Date().getTime();
+            while(this.rand.seed === newSeed)
+            {
+                newSeed = new Date().getTime();
+            }
+            this.rand.seed = newSeed;
+        }
+        else if (seed > 0){
+            this.rand.seed = seed;
+        }
+        else {
+            console.error("Invalid setSeed input");
+        }
+
+        this.rand.randCounter = 0;
+    }
+
+    getSeed = () => {
+        return this.rand.seed;
+    }
+
+    getSeedCounter = () => {
+        return this.rand.randCounter;
+    }
+
+    setSeedCounter = (counter = 0) => {
+        this.rand.randCounter = counter;
+    }
+
+    decrementRandCounter = () => {
+        this.rand.randCounter -= 1;
+    }
+
+    calculateRandom = (seedNum, nextRand) => {
+        let counterPow = this.rand.randCounter * this.rand.randCounter; //
+        let seedPow = seedNum * seedNum;
+        let small = 0.000000000000000001, pi = Math.PI, rand_factor = 7.316173367;
+
+        return (seedPow*counterPow*small*nextRand*pi*rand_factor);
+    }
+
+    randomInt = (min = -40, max = 40) => {
+        let randNum, seedNum;
+        let nMin = min, nMax = max;
+
+        if(max < min)
+        {
+            let temp = min;
+            min = max;
+            max = temp;
+        }
+        else if(max === min)
+        {
+            return max;
+        }
+
+        let range = nMax - nMin;
+
+        if(this.rand.seed === undefined)
+        {
+            this.rand.seed = new Date().getTime();
+            this.rand.randCounter = 0;
+        }
+
+        this.rand.randCounter += 1;
+        seedNum = this.rand.seed;
+        while(seedNum < 1000000000)
+        {
+            seedNum *= seedNum;
+        }
+
+        let nextRand = this.nextRandom(min, max);
+        this.decrementRandCounter();
+
+        randNum = this.calculateRandom(seedNum, nextRand);
+
+        while(randNum > 100000000000000)
+        {
+            randNum = randNum / 100;
+        }
+        randNum = randNum % range;
+
+        randNum = Math.floor(randNum);
+        randNum = randNum + min;
+
+        return randNum;
+    }
+
+    random = (min = -40, max = 40) => {
+        if(max < min)
+        {
+            let temp = min;
+            min = max;
+            max = temp;
+        }
+        else if(max === min)
+        {
+            return max;
+        }
+        
+        const range = max - min;
+        let randNum, seedNum, nextRand;
+
+        if(this.rand.seed === undefined)
+        {
+            this.rand.seed = new Date().getTime();
+            this.rand.randCounter = 0;
+        }
+
+        this.rand.randCounter += 1;
+        seedNum = this.rand.seed;
+        while(seedNum < 1000000000)
+        {
+            seedNum *= seedNum;
+        }
+
+        nextRand = this.nextRandom(min, max);
+        this.decrementRandCounter();
+
+        randNum = this.calculateRandom(seedNum, nextRand);
+
+        while(randNum > 100000000000000)
+        {
+            randNum = randNum / 100;
+        }
+        randNum = randNum % range;
+
+        randNum = randNum + min;
+        return randNum;
+    }
+
+    nextRandom = (min = -40, max = 40) => {
+        let range = max - min;
+        let randNum, seedNum;
+
+        this.rand.randCounter += 1;
+        seedNum = this.rand.seed;
+        while(seedNum < 1000000000)
+        {
+            seedNum *= seedNum;
+        }
+
+        randNum = this.calculateRandom(seedNum, 1);
+        while(randNum > 100000000000000)
+        {
+            randNum = randNum / 100;
+        }
+        randNum = randNum % range;
+
+        randNum = randNum + min;
+        if(randNum < 0)
+        {
+            randNum = 0 - randNum;
+        }
+        else if (randNum === 0)
+        {
+            randNum++;
+        }
+        return randNum;
     }
 
     /********************* GETTERS *********************/
