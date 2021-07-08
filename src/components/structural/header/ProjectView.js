@@ -105,6 +105,7 @@ class Project extends React.Component {
             value: this.props.tab,
         };
         this.emailRef = React.createRef();
+        this.inputFileRef = React.createRef();
     }
 
     handleClick = event => {
@@ -351,6 +352,13 @@ class Project extends React.Component {
                 </ListItemIcon>
                 <ListItemText inset primary="Send" />
             </MenuItem>
+            <MenuItem
+                onClick={() => {this.props.exportFunc(this.state.projectId);}}>
+                <ListItemIcon>
+                    <Icon className="material-icons">get_app</Icon>
+                </ListItemIcon>
+                <ListItemText inset primary="Export"/>
+            </MenuItem>
             {/* <MenuItem
         onClick={() => { this.handleClose(); this.handlePwToggle(); }}>
         <ListItemIcon >
@@ -437,6 +445,27 @@ class Project extends React.Component {
                             </Tabs>
                             {this.state.value === "a" &&
                                 <div id="project-list" style={{ marginTop: 0, overflow: "scroll" }}>
+                                    <div className="row" style={{width: "100%", flexDirection: "row-reverse"}}>
+                                        <div>
+                                            <Tooltip title="Export all Scenes, use the share button to export individual scenes">
+                                                {/* This needs to be in arrow function to prevent a parameter from being passed*/}
+                                                <Button onClick={() => { this.props.exportFunc();} }>
+                                                    <Icon className="material-icons">get_app</Icon>
+                                                    <span>&nbsp;</span>Export All
+                                                </Button>
+                                            </Tooltip>
+                                        </div>
+                                        <div>
+                                            <form>
+                                                <input type="file" name="import" ref={this.inputFileRef} style={{visibility: "hidden"}} onChange={this.props.importFunc} accept=".json" />
+                                                {/*This needs to be in an arrow function since inputFileRef may not have created it's ref before ProjectView itself */}
+                                                <Button onClick={() => { this.inputFileRef.current.click(); }}>
+                                                    <Icon className="material-icons">publish</Icon>
+                                                    <span>&nbsp;</span>Import
+                                                </Button>
+                                            </form>
+                                        </div>
+                                    </div>
                                     <div className="row" id="user-proj" style={{ width: "100%" }}>
                                         { // Sort the users projects in alphabetical order
                                             userProjs.sort(function (a, b) {

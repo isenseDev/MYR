@@ -555,6 +555,10 @@ class Header extends Component {
         this.setState({ snackOpen: false });
     }
 
+    handleExport = (scenes = undefined) => {
+        this.props.projectActions.exportScenes(this.props.user.uid, scenes);
+    }
+
     renderSnackBar = () => {
         return (
             <Snackbar
@@ -749,6 +753,8 @@ class Header extends Component {
                         exampleProjs={this.props.projects.exampleProjs}
                         projectsOpen={this.state.projectsOpen}
                         handleProjectToggle={this.handleProjectToggle}
+                        exportFunc={this.handleExport}
+                        importFunc={(fileEvent) => this.props.projectActions.importScenes(this.props.user.uid, fileEvent) }
                         tab={this.state.projectTab}
                         user={this.props.user} />
                     <MyrTour
@@ -775,6 +781,7 @@ class Header extends Component {
                         handleSaveClose={this.handleSaveClose}
                         layoutType={this.props.layoutType}
                         displayCollectionConfig={!this.props.collection}
+                        exportFunc={this.props.projectId ? () => { this.handleExport(this.props.projectId); } : false}
                     />
                     <CourseSelect
                         coursesOpen={this.state.coursesOpen}
