@@ -137,9 +137,10 @@ class View extends Component {
                 return <a-text key={ent.id} {...flattened}></a-text>;
             }
             if (ent.tube) {
-                return <a-tube path={ent.path} radius={ent.radius} material={ent.material} shadow={shadow} shadowcustomsetting></a-tube>;
+                return <a-tube path={ent.path} radius={ent.radius} material={ent.material} materialinfo={`type: ${ent.materialinfo.type}; roughness: ${ent.materialinfo.roughness}; metalness: ${ent.materialinfo.metalness};`} shadow={shadow} shadowcustomsetting></a-tube>;
             }
-            return <a-entity class="raycastable" key={ent.id} {...flattened} shadow={shadow} shadowcustomsetting ></a-entity>;
+            return <a-entity class="raycastable" key={ent.id} {...flattened} material={ent.material} materialinfo={`type: ${ent.materialinfo.type}; roughness: ${ent.materialinfo.roughness}; metalness: ${ent.materialinfo.metalness};`} shadow={shadow} shadowcustomsetting ></a-entity>;
+            
         }
     }
     //return elements that contains necessary configuration for light indicator based on light's type and properties
@@ -174,7 +175,7 @@ class View extends Component {
         let newState = "";
         //ambient and hemisphere light doesn't cast shadow
         if(light.type !== "ambient" && light.type !== "hemisphere"){
-            newState += "castShadow:true; shadowMapHeight:2000; shadowMapWidth:2000;";
+            newState += "castShadow:true; shadowMapHeight:2048; shadowMapWidth:2048;";
             if(light.type === "spot"){
                 newState += "shadowBias: -0.02; shadowCameraNear: 7;";
             }else if(light.type ==="directional"){

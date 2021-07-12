@@ -285,6 +285,24 @@ let transformations = [
         example: "setTexture"
     },
     {
+        name: "setMaterialType",
+        parameters: [{type: "MaterialType", name: "materialtype"}],
+        description: <span>The setMaterialType function changes the material type of the cursor.</span>,
+        example: "setMaterialType(\"toon\");"
+    },
+    {
+        name: "setRoughness",
+        parameters: [{type: "number", name: "roughness"}],
+        description: <span>The setRoughness function changes the roughness of the cursor within a range of 0 to 1. Custom roughness only applies to objects with MaterialType.PHYSICAL.</span>,
+        example: "setRoughness(0.5)"
+    },
+    {
+        name: "setMetalness",
+        parameters: [{type: "number", name: "metalness"}],
+        description: <span>The setMetalness function changes the metalness of the cursor within a range of 0 to 1. Custom metalness only applies to objects with MaterialType.PHYSICAL.</span>,
+        example: "setMetalness(0.5)"
+    },
+    {
         name: "setTextureColoring",
         parameters: [{type: "bool", name:"boolean"}],
         description: <span>The setTextureColoring function sets the textureColoring attribute in the cursor, turning whether colors are applied to objects with textures on and off. The default value is false.</span>,
