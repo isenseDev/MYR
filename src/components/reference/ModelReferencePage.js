@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import myrReference from "../../myr/modelReference";
 
 import ModelPack from "../structural/Models.js";
@@ -16,10 +16,16 @@ import {
     Hidden,
 } from "@material-ui/core";
 
-import "../../css/ModelReferencePage.css";
+import "../../css/ReferencePage.css";
 
-export default class ModelReference extends React.Component {
-
+/**
+ * ModelReferencePage is react component for creating Model Reference Page
+ */
+export default class ModelReferencePage extends Component {
+    /**
+     * Constructor
+     *  value represents the current tab that's opened  
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -27,13 +33,23 @@ export default class ModelReference extends React.Component {
         };
         this.tableData = myrReference();
     }
-
-    handleToggle = () => this.setState({ open: !this.state.open, value: "a" });
-
+    
+    /**
+     * Handler for when user clicked the tab, it updates the state "value" with value passed in
+     * 
+     * @param {Event} event 
+     * @param {string} value tab to be changed to. It should be an alphabet
+     */
     handleChange = (event, value) => {
         this.setState({ value });
     };
 
+    /**
+     * Helper function for getting the name of the image to retrieve from backend
+     * 
+     * @param {*} model 
+     * @returns 
+     */
     imageHelper = (model) => {
         if(model) {
             let models = ModelPack().ModelPack;
@@ -47,6 +63,12 @@ export default class ModelReference extends React.Component {
         return null;
     };
 
+    /**
+     * Create a button that will link to the example scene
+     * 
+     * @param {string} example name of the API
+     * @returns {HTMLElement} IconButton with link to the example scene
+     */
     exampleHelper = (example) => {
         if(example) {
             let link = "/modelReference/" + example;
@@ -61,8 +83,13 @@ export default class ModelReference extends React.Component {
         return null;
     };
 
+    /**
+     * Create a table of references by retrieve array of references from tableData by category
+     * 
+     * @param {string} category name of the category
+     * @returns {Table} DOM elements of table with references with passed category 
+     */
     TableEx = (category) => {
-
         return (
             <Table  >
                 <TableHead >
@@ -89,9 +116,12 @@ export default class ModelReference extends React.Component {
         );
     };
 
+    /**
+     * Render reference page for model
+     */
     render() {
         return (
-            <div id="modelReference-page">
+            <div id="reference-page">
                 <Tabs
                     id="modelReference-tabs"
                     fullWidth={true}

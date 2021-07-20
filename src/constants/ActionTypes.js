@@ -12,16 +12,17 @@ export const EDITOR_REFRESH = "EDITOR_REFRESH";
 export const EDITOR_RECOVER = "EDITOR_RECOVER";
 export const EDITOR_CHANGE = "EDITOR_CHANGE";
 export const EDITOR_UPDATE_SAVEDTEXT = "EDITOR_UPDATE_SAVEDTEXT";
-export const ADD_PW = "ADD_PW";
 export const SAVE_START = "SAVE_START";
+//unused constant
 export const SAVE_FIN = "SAVE_FIN";
 export const REQ_RELOAD = "REQ_RELOAD";
 
-export const ASYNC_USER_PROJ = "ASYNC_USER_PROJ";
 export const SYNC_USER_PROJ = "SYNC_USER_PROJ";
-export const ASYNC_EXAMP_PROJ = "ASYNC_EXAMP_PROJ";
 export const SYNC_EXAMP_PROJ = "SYNC_EXAMP_PROJ";
 export const DELETE_PROJ = "DELETE_PROJ";
+//unused constant
+export const ASYNC_USER_PROJ = "ASYNC_USER_PROJ";
+export const ASYNC_EXAMP_PROJ = "ASYNC_EXAMP_PROJ";
 
 export const NAME_SCENE = "NAME_SCENE";
 export const NEW_SCENE = "NEW_SCENE";
@@ -37,8 +38,8 @@ export const TOGGLE_FLOOR = "TOGGLE_FLOOR";
 export const LOAD_SETTINGS = "LOAD_SETTINGS";
 export const CHANGE_SETTINGS = "CHANGE_SETTINGS";
 export const RESET_SETTINGS = "RESET_SETTINGS";
-export const ADD_CLASSROOM = "ADD_CLASSROOM";
-export const REMOVE_CLASSROOM = "REMOVE_CLASSROOM";
+export const ADD_COLLECTION = "ADD_COLLECTION";
+export const REMOVE_COLLECTION = "REMOVE_COLLECTION";
 export const SET_DESC = "SET_DESC";
 export const SET_NAME_DESC = "SET_NAME_DESC";
 export const TOGGLE_DEFAULT_LIGHT = "TOGGLE_DEFAULT_LIGHT";

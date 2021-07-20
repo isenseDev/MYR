@@ -5,6 +5,11 @@ import TextureReferencePage from "../reference/TextureReferencePage";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
+/**
+ * Create a layout for texture reference page.
+ * @param {object} param0 List of props that will be use in components
+ * @returns {HTMLElement} Layout of the texture reference page 
+ */
 export const TextureReference = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Header
@@ -23,7 +28,7 @@ export const TextureReference = ({ editor, editorActions, user, authActions, sce
             courses={courses}
             collectionActions={collectionActions}
             collections={collections}
-            layoutType={layoutTypes.TEXTURE_REFERENCE}
+            layoutType={layoutTypes.REFERENCE}
         />
         <div className="row no-gutters">
             <TextureReferencePage />
